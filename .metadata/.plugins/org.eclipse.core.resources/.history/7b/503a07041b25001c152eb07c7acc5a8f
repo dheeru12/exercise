@@ -1,0 +1,32 @@
+package com.demo.application.client;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import com.demo.application.dto.AccountTransactionDTO;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+
+@Component
+public class ApplicationWebClient {
+	
+	@Value("datasource.url")
+	private static String url;
+
+	private static WebClient webClient = WebClient.create(url);
+
+	public static Mono<AccountTransactionDTO> findOne(String account) {
+		return webClient.get().uri("/findone" + account).retrieve().bodyToMono(AccountTransactionDTO.class);
+	}
+	
+	public static Flux<AccountTransactionDTO> getAll(){
+		return webClient.get().uri("/fetchall").retrieve().bodyToFlux(AccountTransactionDTO.class);
+	}
+	
+
+}

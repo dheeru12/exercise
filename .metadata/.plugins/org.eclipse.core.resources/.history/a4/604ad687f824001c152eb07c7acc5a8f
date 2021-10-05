@@ -1,0 +1,18 @@
+package com.demo.application.model;
+
+import java.time.LocalTime;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Transaction {
+	private Integer id;
+	private LocalTime time;
+	private String ipAddress;
+	private String location;
+	private Integer amount;
+}

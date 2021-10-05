@@ -1,0 +1,13 @@
+package com.demo.application.checks;
+
+public class ApplicationCheck2{
+	
+	
+	
+	@Check
+	public static boolean verify() {
+		System.out.println("check 2");	
+		return false;
+	}
+
+}

@@ -1,0 +1,19 @@
+package com.demo.application.dto;
+
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AccountTransactionDTO {
+	private String account;
+	private Date dateTime;
+	private String beneficiary;
+	private String channel;
+	private String channelKey;
+	private String gps;
+}

@@ -1,0 +1,25 @@
+package com.demo.application.checks;
+
+import java.time.LocalTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.demo.application.client.ApplicationWebClient;
+import com.demo.application.model.Transaction;
+
+public class ApplicationCheck1{
+	
+	@Autowired
+	private  ApplicationWebClient applicationWebClient;
+	
+	private static boolean isBeforeTwoHours(String dataTime,String transactionTime) {
+		return  LocalTime.parse(transactionTime).getHour() - LocalTime.parse(dataTime).getHour() <= 2;
+	}
+	
+	@Check
+	public boolean verify(Transaction transaction) {
+		Long result =  applicationWebClient.getAll().filter(d -> isBeforeTwoHours(d.getTime(), transaction.getTime())).count().block();
+		return result<25L;
+	}
+	
+}

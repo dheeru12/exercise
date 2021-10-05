@@ -1,0 +1,7 @@
+package com.demo.application.checks;
+
+import com.demo.application.model.Transaction;
+
+public interface Check {
+	public boolean verify(Transaction transaction);
+}

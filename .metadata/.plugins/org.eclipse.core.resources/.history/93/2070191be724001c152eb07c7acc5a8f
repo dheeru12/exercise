@@ -1,0 +1,35 @@
+package com.demo.application.checks;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.demo.application.client.ApplicationWebClient;
+import com.demo.application.dto.AccountTransactionDTO;
+import com.demo.application.model.Transaction;
+
+import reactor.core.publisher.Flux;
+
+public class ApplicationCheck1{
+	
+	
+	@Autowired
+	ApplicationWebClient client;
+	
+	static Flux<AccountTransactionDTO> data;
+	
+	@PostConstruct
+	private void init() {
+		data = this.client.getAll();
+	}
+	
+	@Check
+	public static boolean verify(Transaction transaction) {
+		
+		//data.filter()
+		
+		System.out.println("check 1");
+		return false;
+	}
+	
+}

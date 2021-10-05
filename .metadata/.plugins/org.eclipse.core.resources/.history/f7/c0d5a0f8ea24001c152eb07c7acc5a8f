@@ -1,0 +1,39 @@
+package com.demo.application.checks;
+
+import java.time.LocalTime;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.demo.application.client.ApplicationWebClient;
+import com.demo.application.dto.AccountTransactionDTO;
+import com.demo.application.model.Transaction;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+public class ApplicationCheck1{
+	
+	
+	@Autowired
+	ApplicationWebClient client;
+	
+	static Flux<AccountTransactionDTO> data;
+	
+	@PostConstruct
+	private void init() {
+		data = this.client.getAll();
+	}
+	
+	private static boolean isBeforeTwoHours(LocalTime dataTime,LocalTime transactionTime) {
+		return dataTime.getHour() - transactionTime.getHour() <= 2;
+	}
+	
+	@Check
+	public static boolean verify(Transaction transaction) {
+		final Long count;
+		data.filter(d -> isBeforeTwoHours(d.getTime(), transaction.getTime())).count().subscribe(c -> {count = c;});
+	}
+	
+}
