@@ -1,0 +1,35 @@
+@Service
+public class AccountTransactionServiceImpl implements AccountTransactionService{
+	
+	
+	@Autowired
+	@Qualifier("reactiveRedisTemplateAccountTransaction")
+	private ReactiveRedisTemplate<String, AccountTransaction> reactiveRedisTemplateAccountTransaction;
+	
+	@Value("${redisdb.hash}")
+	private String HASH;
+	
+	private ReactiveHashOperations<String, String, AccountTransaction> hashOperations;
+	
+	@PostConstruct
+	private void init() {
+		hashOperations=reactiveRedisTemplateAccountTransaction.opsForHash();  
+	}
+	
+	
+	@Override
+	public Mono<Boolean> save(AccountTransaction transaction) {
+		return hashOperations.put(HASH, transaction.getAccount(), transaction);
+	}
+
+	@Override
+	public Flux<AccountTransaction> getAll() {
+		return hashOperations.values(HASH);
+	}
+
+	@Override
+	public Mono<AccountTransaction> findOne(String account) {
+		return hashOperations.get(HASH, account);
+	}
+	
+}

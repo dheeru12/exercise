@@ -2,16 +2,24 @@ package com.demo.application.checks;
 
 import java.time.LocalTime;
 
-import com.demo.application.client.ApplicationWebClient;
-import com.demo.application.dto.AccountTransactionDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.demo.application.model.AccountTransaction;
 import com.demo.application.model.Transaction;
+import com.demo.application.redis.service.AccountTransactionService;
 
 import reactor.core.publisher.Mono;
 
 
+@Component
 public class ApplicationCheck2 implements Check{
+	
+	@Autowired
+	AccountTransactionService service;
+	
 
-	private static boolean isValid(AccountTransactionDTO dto, Transaction transaction) {
+	private static boolean isValid(AccountTransaction dto, Transaction transaction) {
 		return transaction.getIpAddress().equals(transaction.getIpAddress())
 				&& LocalTime.parse(transaction.getTime()).getMinute() - LocalTime.parse(dto.getTime()).getMinute() < 30
 				&& dto.getAmount() >= 300;
@@ -19,8 +27,14 @@ public class ApplicationCheck2 implements Check{
 
 	
 	public Mono<Boolean> verify(Transaction transaction) {
-		Mono<Boolean> result = ApplicationWebClient.getAll().filter(account -> isValid(account, transaction)).count().map(c -> c<25L);
+		Mono<Boolean> result = service.getAll().filter(account -> isValid(account, transaction)).count().map(c -> c<25L);
 		return result;
+	}
+
+
+	@Override
+	public String checkDescription() {
+		return "Checks if multiple transactions take place from the same IP Address";
 	}
 
 }

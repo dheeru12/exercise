@@ -6,4 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface Check {
 	public Mono<Boolean> verify(Transaction transaction);
+	public String checkDescription();
 }

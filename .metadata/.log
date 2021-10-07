@@ -173,3 +173,8 @@ Binding(COMMAND+SHIFT+T,
 
 !ENTRY org.eclipse.ui.navigator 2 0 2021-10-05 08:31:52.093
 !MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.core.resources 2 2 2021-10-07 14:01:58.947
+!MESSAGE Save operation warnings.
+!SUBENTRY 1 org.eclipse.core.resources 2 234 2021-10-07 14:01:58.947
+!MESSAGE The project description file (.project) for 'redisapi' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.

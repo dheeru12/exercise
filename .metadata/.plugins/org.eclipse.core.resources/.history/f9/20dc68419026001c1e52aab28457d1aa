@@ -1,0 +1,5 @@
+package com.demo.application;
+
+public class ApplicationContextProvider {
+
+}

@@ -1,0 +1,8 @@
+package com.demo.application.redis.service;
+public interface AccountTransactionService {
+	public Mono<Boolean> save(AccountTransaction transaction);
+
+	public Flux<AccountTransaction> getAll();
+
+	public Mono<AccountTransaction> findOne(String account);
+}
