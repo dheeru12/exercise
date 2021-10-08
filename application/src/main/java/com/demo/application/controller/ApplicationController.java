@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.demo.application.model.CheckResponseDTO;
 import com.demo.application.model.Transaction;
 import com.demo.application.service.ApplicationService;
 
@@ -20,7 +21,7 @@ public class ApplicationController {
 	ApplicationService service;
 
 	@PostMapping("/transaction")
-	public Flux<String> recieveTransaction(@RequestBody Transaction transaction) {	
+	public Flux<CheckResponseDTO> recieveTransaction(@RequestBody Transaction transaction) {	
 		return service.executeChecks(transaction);
 	}
 

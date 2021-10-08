@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.demo.application.model.AccountTransaction;
+import com.demo.application.model.CheckResponseDTO;
 import com.demo.application.model.Transaction;
 import com.demo.application.redis.service.AccountTransactionService;
 
@@ -26,8 +27,10 @@ public class ApplicationCheck2 implements Check{
 	}
 
 	
-	public Mono<Boolean> verify(Transaction transaction) {
-		Mono<Boolean> result = service.getAll().filter(account -> isValid(account, transaction)).count().map(c -> c<25L);
+	public Mono<CheckResponseDTO> verify(Transaction transaction) {
+		Mono<CheckResponseDTO> result = service.getAll().filter(account -> isValid(account, transaction)).count().map(c -> {
+			return new CheckResponseDTO(c<25L,checkDescription());
+		});
 		return result;
 	}
 

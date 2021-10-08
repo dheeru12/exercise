@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.demo.application.model.CheckResponseDTO;
 import com.demo.application.model.Transaction;
 import com.demo.application.redis.service.AccountTransactionService;
 
@@ -22,9 +23,11 @@ public class ApplicationCheck1 implements Check {
 		return LocalTime.parse(transactionTime).getHour() - LocalTime.parse(dataTime).getHour() <= 2;
 	}
 
-	public Mono<Boolean> verify(Transaction transaction) {
+	public Mono<CheckResponseDTO> verify(Transaction transaction) {
 		return service.getAll().filter(d -> isBeforeTwoHours(d.getTime(), transaction.getTime())).count()
-				.map(c -> c < 25L);
+				.map(c -> {
+					return new CheckResponseDTO(c<25L,checkDescription());
+				});
 	}
 
 	@Override
