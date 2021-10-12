@@ -19,8 +19,7 @@ public class ApplicationService {
 	private List<Check> checks;
 
 	public Flux<CheckResponseDTO> executeChecks(Transaction transaction) {
-		return 
-			Flux.concat(checks.parallelStream().map(check -> {
+		return Flux.concat(checks.parallelStream().map(check -> {
 			return check.verify(transaction);
 		}).collect(Collectors.toList()));
 	}

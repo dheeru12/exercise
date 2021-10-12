@@ -19,6 +19,7 @@ public class AccountTransaction implements Serializable {
 	private String channel;
 	private String channelKey;
 	private String gps;
+	private String ipAddress;
 	
 }
 	

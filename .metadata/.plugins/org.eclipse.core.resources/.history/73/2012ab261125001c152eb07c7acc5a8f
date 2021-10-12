@@ -1,5 +1,0 @@
-package com.demo.application.checks;
-
-public interface Check {
-	public boolean verify();
-}
