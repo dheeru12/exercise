@@ -1,8 +1,0 @@
-package com.demo.application.model;
-
-import java.util.List;
-
-public class ResponseDTO {
-	private int count;
-	private List<String> data;
-}

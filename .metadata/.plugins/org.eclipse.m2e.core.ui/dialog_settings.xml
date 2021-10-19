@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/Users/dheerajkumar/Desktop/exercise/spring-boot-main"/>
 			<item value="/Users/dheerajkumar/Desktop/exercise/project"/>
 			<item value="/Users/dheerajkumar/Desktop/exercise/redisapi"/>
 			<item value="/Users/dheerajkumar/Desktop/exercise/application"/>
